@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Weather App</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet" />
+</head>
+<body class="bg-gradient-to-br from-blue-500 to-indigo-700 min-h-screen text-white font-sans">
+
+  <!-- Container -->
+  <div class="max-w-6xl mx-auto p-4 space-y-6">
+
+    <!-- Current Weather -->
+    <section class="bg-white/10 backdrop-blur-md rounded-2xl shadow-lg p-6">
+      <h2 class="text-2xl font-bold mb-4">Current Weather</h2>
+      <div class="flex flex-col md:flex-row items-center md:items-start gap-6">
+
+        <!-- Icon -->
+        <img id="weather-icon" src="https://via.placeholder.com/100" alt="Weather Icon" class="w-24 h-24" />
+
+        <!-- Info -->
+        <div class="grid grid-cols-2 gap-4 text-sm sm:text-base">
+          <p><span class="font-semibold">Location:</span> <span id="location-name">Colombo, Sri Lanka</span></p>
+          <p><span class="font-semibold">Local Time:</span> <span id="local-time">12:30 PM</span></p>
+          <p><span class="font-semibold">Condition:</span> <span id="weather-condition">Sunny</span></p>
+          <p><span class="font-semibold">Temperature:</span> <span id="temperature">30°C / 86°F</span></p>
+          <p><span class="font-semibold">Feels Like:</span> <span id="feels-like">32°C</span></p>
+          <p><span class="font-semibold">Wind Speed:</span> <span id="wind-speed">15 KPH</span></p>
+          <p><span class="font-semibold">Humidity:</span> <span id="humidity">65%</span></p>
+          <p><span class="font-semibold">Cloud Cover:</span> <span id="cloud-cover">20%</span></p>
+          <p><span class="font-semibold">UV Index:</span> <span id="uv-index">5</span></p>
+          <p><span class="font-semibold">Pressure:</span> <span id="pressure">1015 hPa</span></p>
+          <p><span class="font-semibold">Visibility:</span> <span id="visibility">10 km</span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Hourly Forecast -->
+    <section>
+      <h2 class="text-2xl font-bold mb-4">Hourly Forecast</h2>
+      <div class="flex gap-4 overflow-x-auto pb-4">
+        <!-- Example card -->
+        <div class="flex-shrink-0 bg-white/10 backdrop-blur-md rounded-xl p-4 text-center min-w-[100px]">
+          <p id="hour-1">1 PM</p>
+          <img src="https://via.placeholder.com/50" alt="Icon" class="mx-auto my-2" />
+          <p id="condition-1">Sunny</p>
+          <p id="temp-1">30°C</p>
+        </div>
+        <!-- Duplicate for more hours -->
+      </div>
+    </section>
+
+    <!-- Daily Forecast -->
+    <section>
+      <h2 class="text-2xl font-bold mb-4">Daily Forecast</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <!-- Example card -->
+        <div class="bg-white/10 backdrop-blur-md rounded-xl p-4 text-center">
+          <p id="day-1" class="font-semibold">Monday</p>
+          <img src="https://via.placeholder.com/60" alt="Icon" class="mx-auto my-2" />
+          <p id="condition-day-1">Partly Cloudy</p>
+          <p><span id="max-temp-day-1">32°C</span> / <span id="min-temp-day-1">25°C</span></p>
+        </div>
+        <!-- Duplicate for other days -->
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Flowbite JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+</body>
+</html>

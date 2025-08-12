@@ -45,7 +45,7 @@
                 aria-current="page">Home</a>
             </li>
             <li>
-              <a href="#"
+              <a href="./example.html"
                 class="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">About</a>
             </li>
             <li>
@@ -58,39 +58,145 @@
     </nav>
   </header>
 
+  <!-- ------------------------------------------ -->
 
-
-  <div class="mainFace">
-    <!-- ---------------------Image------------------------- -->
-    <img class="mainPic" src="./assets/img/Blue and White Modern Web Designer Business Card.png" alt="" width="1480">
-
-    <!-- ---------------------Title Text------------------------- -->
-    <div class="textDiv">
-      <h1>Discover the weather in <br> every city you go</h1>
-    </div>
-
-    <!-- ---------------------Search Bar------------------------- -->
-    <div class="searchBar">
-      <form class="max-w-sm mx-auto">
-        <div class="relative">
-          <input type="email" id="email" aria-describedby="helper-text-explanation"
-            class="bg-white border border-gray-300 text-black placeholder-black text-sm rounded-2xl focus:ring-blue-500 focus:border-blue-500 block w-[24rem] pr-10 p-2.5"
-            placeholder="Search for a city">
-
-          <svg class="w-5 h-5 text-gray-500 absolute right-3 top-[2rem] -translate-y-1/2 pointer-events-none"
-            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-            viewBox="0 0 24 24">
-            <path d="M21 21l-4.35-4.35"></path>
-            <circle cx="10" cy="10" r="7"></circle>
-          </svg>
+  <section class="flex justify-center">
+  <div class="w-[1300px] bg-white rounded-lg shadow-xl p-6">
+    <!-- Top Section -->
+    <div class="flex justify-between items-center mb-6">
+      <!-- Left: Location, Date, Time, Sunny & Icon -->
+      <div class="flex items-center space-x-6">
+        <!-- Weather Icon -->
+        <img src="https://cdn-icons-png.flaticon.com/512/869/869869.png" alt="Sunny" class="w-20 h-20">
+        
+        <!-- Text -->
+        <div>
+          <h2 class="text-xl font-bold text-gray-800">Colombo, Sri Lanka</h2>
+          <p class="text-gray-600">Monday, 2:30 PM</p>
+          <span class="text-lg font-semibold text-gray-800">Sunny ☀️</span>
         </div>
-      </form>
+      </div>
+
+      <!-- Right: Temperature -->
+      <div class="text-right">
+        <span class="text-5xl font-bold text-gray-800">29°C</span>
+        <p class="text-gray-600">Feels like 31°C</p>
+      </div>
     </div>
 
-  
+    <!-- Weather Details as Cards -->
+    <div class="grid grid-cols-3 gap-6 text-center">
+      <!-- Wind -->
+      <div class="bg-gray-50 rounded-lg shadow p-3">
+        <img src="https://cdn-icons-png.flaticon.com/512/4150/4150897.png" alt="Wind" class="w-10 h-10 mx-auto mb-1">
+        <p class="text-gray-600 font-medium">Wind</p>
+        <p class="text-gray-800">15 KPH</p>
+      </div>
+
+      <!-- Humidity -->
+      <div class="bg-gray-50 rounded-lg shadow p-3">
+        <img src="https://cdn-icons-png.flaticon.com/512/728/728093.png" alt="Humidity" class="w-10 h-10 mx-auto mb-1">
+        <p class="text-gray-600 font-medium">Humidity</p>
+        <p class="text-gray-800">60%</p>
+      </div>
+
+      <!-- Cloud -->
+      <div class="bg-gray-50 rounded-lg shadow p-3">
+        <img src="https://cdn-icons-png.flaticon.com/512/414/414927.png" alt="Cloud" class="w-10 h-10 mx-auto mb-1">
+        <p class="text-gray-600 font-medium">Cloud</p>
+        <p class="text-gray-800">20%</p>
+      </div>
+
+      <!-- UV Index -->
+      <div class="bg-gray-50 rounded-lg shadow p-3">
+        <img src="https://cdn-icons-png.flaticon.com/512/2910/2910768.png" alt="UV Index" class="w-10 h-10 mx-auto mb-1">
+        <p class="text-gray-600 font-medium">UV Index</p>
+        <p class="text-gray-800">5</p>
+      </div>
+
+      <!-- Pressure -->
+      <div class="bg-gray-50 rounded-lg shadow p-3">
+        <img src="https://cdn-icons-png.flaticon.com/512/728/728059.png" alt="Pressure" class="w-10 h-10 mx-auto mb-1">
+        <p class="text-gray-600 font-medium">Pressure</p>
+        <p class="text-gray-800">1012 Mpa</p>
+      </div>
+
+      <!-- Visibility -->
+      <div class="bg-gray-50 rounded-lg shadow p-3">
+        <img src="https://cdn-icons-png.flaticon.com/512/869/869869.png" alt="Visibility" class="w-10 h-10 mx-auto mb-1">
+        <p class="text-gray-600 font-medium">Visibility</p>
+        <p class="text-gray-800">10 km</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- --------------------------------Hourly Forecast-------------------------------- -->
+
+<br><br><br><br><br><br>
+
+<section>
+  <div class="max-w-[1300px] mx-auto px-4">
+    <h1 class="text-white text-2xl font-bold mb-6">Hourly Forecast</h1>
+    
+    <div class="flex space-x-4 overflow-x-auto">
+      <!-- 1 AM Card -->
+      <div class="bg-[#02033a] rounded-lg p-8 shadow-lg flex justify-between items-center min-w-[140px] h-40">
+        <div class="text-white flex flex-col items-center">
+          <p class="font-semibold mb-2">1.00 AM</p>
+          <img src="./assets/img/misty.png" alt="Mist" class="w-10 h-10 mb-1">
+          <span>Mist</span>
+        </div>
+        <p class="text-white text-3xl font-bold ml-4">23°C</p>
+      </div>
+      
+      <!-- 7 AM Card -->
+      <div class="bg-[#02033a] rounded-lg p-8 shadow-lg flex justify-between items-center min-w-[140px] h-40">
+        <div class="text-white flex flex-col items-center">
+          <p class="font-semibold mb-2">7.00 AM</p>
+          <img src="./assets/img/sunny.png" alt="Sunny" class="w-10 h-10 mb-1">
+          <span>Sunny</span>
+        </div>
+        <p class="text-white text-3xl font-bold ml-4">25°C</p>
+      </div>
+      
+      <!-- 11 AM Card -->
+      <div class="bg-[#02033a] rounded-lg p-8 shadow-lg flex justify-between items-center min-w-[140px] h-40">
+        <div class="text-white flex flex-col items-center">
+          <p class="font-semibold mb-2">11 AM</p>
+          <img src="./assets/img/rainShower.png" alt="Rain Shower" class="w-10 h-10 mb-1">
+          <span>Rain Shower</span>
+        </div>
+        <p class="text-white text-3xl font-bold ml-4">26°C</p>
+      </div>
+      
+      <!-- 3 PM Card -->
+      <div class="bg-[#02033a] rounded-lg p-8 shadow-lg flex justify-between items-center min-w-[140px] h-40">
+        <div class="text-white flex flex-col items-center">
+          <p class="font-semibold mb-2">3.00 PM</p>
+          <img src="./assets/img/cloudy.png" alt="Cloudy" class="w-10 h-10 mb-1">
+          <span>Cloudy</span>
+        </div>
+        <p class="text-white text-3xl font-bold ml-4">30°C</p>
+      </div>
+      
+      <!-- 7 PM Card -->
+      <div class="bg-[#02033a] rounded-lg p-8 shadow-lg flex justify-between items-center min-w-[140px] h-40">
+        <div class="text-white flex flex-col items-center">
+          <p class="font-semibold mb-2">7.00 PM</p>
+          <img src="./assets/img/foggy.png" alt="Foggy" class="w-10 h-10 mb-1">
+          <span>Foggy</span>
+        </div>
+        <p class="text-white text-3xl font-bold ml-4">28°C</p>
+      </div>
+    </div>
+  </div>
+</section>
 
 
 
+<!-- --------------------------------Daily------------------------------------- -->
 
 
   <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
