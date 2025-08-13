@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <link rel="stylesheet" href="./assets/styles/style.css" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
 </head>
@@ -67,7 +68,8 @@
 
   <!-- Top Weather Section -->
   <section class="flex justify-center px-4 py-8">
-    <div class="w-full max-w-[1300px] rounded-lg shadow-xl p-6 bg-white div">
+    <div class="w-full max-w-[1300px] rounded-lg shadow-xl p-6 bg-white div" data-aos="fade-down"
+      data-aos-easing="linear" data-aos-duration="1500">
       <!-- Top Section -->
       <div class="flex flex-col md:flex-row justify-between items-center mb-6 space-y-4 md:space-y-0">
         <!-- Left: Location, Date, Time, Sunny & Icon -->
@@ -77,18 +79,18 @@
 
           <!-- Text -->
           <div>
-            <h2 class="text-xl font-bold text-black dark:text-white">
+            <h2 id="location" class="text-xl font-bold text-black dark:text-white">
               Colombo, Sri Lanka
             </h2>
-            <p class="text-gray-600 dark:text-gray-300">Monday, 11:30 PM</p>
-            <span class="text-lg font-semibold text-gray-800 dark:text-gray-200">Sunny ☀️</span>
+            <p id="date" class="text-gray-600 dark:text-gray-300">Monday, 11:30 PM</p>
+            <span id="weatherCondition" class="text-lg font-semibold text-gray-800 dark:text-gray-200">Sunny</span>
           </div>
         </div>
 
         <!-- Right: Temperature -->
         <div class="text-right">
-          <span class="text-5xl font-bold text-black dark:text-white">29°C</span>
-          <p class="dark:text-gray-500">Feels like 31°C</p>
+          <span id="temperature" class="text-5xl font-bold text-black dark:text-white">29°C</span>
+          <p id="feelsLike" class="dark:text-gray-500">Feels like 31°C</p>
         </div>
       </div>
 
@@ -147,7 +149,8 @@
   <!-- --------------------------------Hourly Forecast-------------------------------- -->
 
   <section>
-    <div class="mx-auto px-4 h-auto py-6 min-h-[370px] secBar">
+    <div class="mx-auto px-4 h-auto py-6 min-h-[370px] secBar" data-aos="fade-up"
+     data-aos-anchor-placement="top-bottom">
       <h1 class="text-white text-2xl font-bold mb-6 text-center">Hourly Forecast</h1>
 
       <div class="flex space-x-4 overflow-x-auto px-2">
@@ -235,7 +238,7 @@
   <!-- --------------------------------Daily------------------------------------- -->
 
   <section class="flex items-center justify-center p-4 min-h-[500px] sectionBar">
-    <div class="w-full max-w-[1400px] mx-auto px-4">
+    <div class="w-full max-w-[1400px] mx-auto px-4" data-aos="zoom-in-down" data-aos-duration="1200">
       <h1 class="text-2xl font-bold text-gray-800 mb-6 text-center">Daily Forecast</h1>
 
       <div class="flex flex-wrap md:flex-nowrap space-x-0 md:space-x-6 overflow-x-auto">
@@ -326,7 +329,9 @@
     </div>
   </footer>
 
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+  <script src="./assets/js/app.js"></script>
 </body>
 
 </html>
