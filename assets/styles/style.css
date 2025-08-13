@@ -5,7 +5,7 @@ header{
 }
 
 .div{
-    background-image: url(/assets/img/sunnyBgImg.png);
+    background-image: url(./assets/img/sunnyBgImg.png);
 }
 
 .firstBar{
