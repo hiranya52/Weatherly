@@ -1,16 +1,529 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="./assets/styles/style.css">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet"/>
-</head>
-<body>
-    
-    <h1>Weather Web</h1>
 
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./assets/styles/style.css" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
+</head>
+
+<body class="dark:bg-[#010120]">
+
+  <header>
+    <nav class="border-gray-200 bg-gray-50 dark:bg-[#020238] dark:border-gray-700 rounded-xl">
+      <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+
+        <!-- Logo -->
+        <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
+          <img src="./assets/img/weatherlyLogo.png" class="h-8" alt="Flowbite Logo" />
+          <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Weatherly</span>
+        </a>
+
+        <!-- Search bar -->
+        <div class="hidden md:flex items-center ml-[45rem] relative">
+          <input type="text" placeholder="Search..." id="searchCity"
+            class="block w-64 px-3 pr-10 py-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-[#030455] dark:border-gray-600 dark:placeholder-gray-200 dark:text-white" />
+          <svg id="searchBtn" class="w-5 h-5 absolute right-3 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="7"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </div>
+
+        <!-- Mobile menu button -->
+        <button data-collapse-toggle="navbar-hamburger" type="button"
+          class="inline-flex items-center justify-center p-2 w-10 h-10 text-sm text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+          aria-controls="navbar-hamburger" aria-expanded="false">
+          <span class="sr-only">Open main menu</span>
+          <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M1 1h15M1 7h15M1 13h15" />
+          </svg>
+        </button>
+
+        <!-- Mobile menu -->
+        <div class="hidden w-full" id="navbar-hamburger">
+          <ul class="flex flex-col font-medium mt-4 rounded-lg bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
+            <li>
+              <a href="#" class="block py-2 px-3 text-white bg-blue-700 rounded-sm dark:bg-blue-600"
+                aria-current="page">Home</a>
+            </li>
+            <li>
+              <a href=""
+                class="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">About</a>
+            </li>
+            <li>
+              <a href="#"
+                class="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Top Weather Section -->
+  <section class="flex justify-center px-4 py-8">
+    <div class="w-full max-w-[1300px] rounded-lg shadow-xl p-6 bg-white div" data-aos="fade-down"
+      data-aos-easing="linear" data-aos-duration="1500">
+      <!-- Top Section -->
+      <div class="flex flex-col md:flex-row justify-between items-center mb-6 space-y-4 md:space-y-0">
+        <!-- Left: Location, Date, Time, Sunny & Icon -->
+        <div class="flex items-center space-x-6">
+          <!-- Weather Icon -->
+          <img src="https://cdn-icons-png.flaticon.com/512/869/869869.png" alt="Sunny" class="w-20 h-20" />
+
+          <!-- Text -->
+          <div>
+            <h2 id="location" class="text-xl font-bold text-black dark:text-white">
+              Colombo, Sri Lanka
+            </h2>
+            <p id="date" class="text-gray-600 dark:text-gray-300">Monday, 11:30 PM</p>
+            <span id="weatherCondition" class="text-lg font-semibold text-gray-800 dark:text-gray-200">Sunny</span>
+          </div>
+        </div>
+
+        <!-- Right: Temperature -->
+        <div class="text-right">
+          <span id="temperature" class="text-5xl font-bold text-black dark:text-white">29°C</span>
+          <p id="feelsLike" class="dark:text-gray-500">Feels like 31°C</p>
+        </div>
+      </div>
+
+      <!-- Weather Details as Cards -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6 text-center">
+        <!-- Wind -->
+        <div class="bg-gray-50 dark:bg-[#1e293b] rounded-lg shadow p-3 flex flex-col items-center">
+          <img src="https://cdn-icons-png.flaticon.com/512/4150/4150897.png" alt="Wind"
+            class="w-10 h-10 mx-auto mb-1" />
+          <p class="text-gray-600 dark:text-gray-400 font-medium">Wind</p>
+          <p id="wind" class="text-gray-800 dark:text-gray-200">15 KPH</p>
+        </div>
+
+        <!-- Humidity -->
+        <div class="bg-gray-50 dark:bg-[#1e293b] rounded-lg shadow p-3 flex flex-col items-center">
+          <img src="https://cdn-icons-png.flaticon.com/512/728/728093.png" alt="Humidity"
+            class="w-10 h-10 mx-auto mb-1" />
+          <p class="text-gray-600 dark:text-gray-400 font-medium">Humidity</p>
+          <p id="humidity" class="text-gray-800 dark:text-gray-200">60%</p>
+        </div>
+
+        <!-- Cloud -->
+        <div class="bg-gray-50 dark:bg-[#1e293b] rounded-lg shadow p-3 flex flex-col items-center">
+          <img src="https://cdn-icons-png.flaticon.com/512/414/414927.png" alt="Cloud" class="w-10 h-10 mx-auto mb-1" />
+          <p class="text-gray-600 dark:text-gray-400 font-medium">Cloud</p>
+          <p id="cloud" class="text-gray-800 dark:text-gray-200">20%</p>
+        </div>
+
+        <!-- UV Index -->
+        <div class="bg-gray-50 dark:bg-[#1e293b] rounded-lg shadow p-3 flex flex-col items-center">
+          <img src="https://cdn-icons-png.flaticon.com/512/2910/2910768.png" alt="UV Index"
+            class="w-10 h-10 mx-auto mb-1" />
+          <p class="text-gray-600 dark:text-gray-400 font-medium">UV Index</p>
+          <p id="uvIndex" class="text-gray-800 dark:text-gray-200">5</p>
+        </div>
+
+        <!-- Pressure -->
+        <div class="bg-gray-50 dark:bg-[#1e293b] rounded-lg shadow p-3 flex flex-col items-center">
+          <img src="https://cdn-icons-png.flaticon.com/512/728/728059.png" alt="Pressure"
+            class="w-10 h-10 mx-auto mb-1" />
+          <p class="text-gray-600 dark:text-gray-400 font-medium">Pressure</p>
+          <p id="pressure" class="text-gray-800 dark:text-gray-200">1012 Mpa</p>
+        </div>
+
+        <!-- Visibility -->
+        <div class="bg-gray-50 dark:bg-[#1e293b] rounded-lg shadow p-3 flex flex-col items-center">
+          <img src="https://cdn-icons-png.flaticon.com/512/869/869869.png" alt="Visibility"
+            class="w-10 h-10 mx-auto mb-1" />
+          <p class="text-gray-600 dark:text-gray-400 font-medium">Visibility</p>
+          <p id="visibility" class="text-gray-800 dark:text-gray-200">10 km</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- --------------------------------Hourly Forecast-------------------------------- -->
+
+  <section>
+    <div class="mx-auto px-4 h-auto py-6 min-h-[370px] secBar" data-aos="fade-up"
+     data-aos-anchor-placement="top-bottom">
+      <h1 class="text-white text-2xl font-bold mb-6 text-center">Hourly Forecast</h1>
+
+      <div class="flex space-x-4 overflow-x-auto px-2">
+        <!------- 00.00 Card ------->
+        <div
+          class="bg-[#02033a] rounded-lg p-6 shadow-lg flex flex-col justify-between items-center w-[180px] h-[250px] flex-shrink-0">
+          <div class="text-white flex flex-col items-center">
+            <p class="font-semibold mb-3 text-sm sm:text-base">00.00 AM</p>
+            <img id="icon_0" src="./assets/img/misty.png" alt="Mist" class="w-16 h-16 mb-2 sm:mb-3">
+            <span id="weatherCondition_0" class="text-sm sm:text-base">Mist</span>
+          </div>
+          <p id="temp_0" class="text-white text-2xl font-bold mt-4 sm:mt-6">23°C</p>
+        </div>
+
+        <!------- 1.00 Card ------->
+        <div
+          class="bg-[#02033a] rounded-lg p-6 shadow-lg flex flex-col justify-between items-center w-[180px] h-[250px] flex-shrink-0">
+          <div class="text-white flex flex-col items-center">
+            <p class="font-semibold mb-3 text-sm sm:text-base">1.00 AM</p>
+            <img  id="icon_1"src="./assets/img/sunny.png" alt="Sunny" class="w-16 h-16 mb-2 sm:mb-3">
+            <span id="weatherCondition_1" class="text-sm sm:text-base">Sunny</span>
+          </div>
+          <p id="temp_1" class="text-white text-2xl font-bold mt-4 sm:mt-6">25°C</p>
+        </div>
+
+        <!------- 2.00 Card ------->
+        <div
+          class="bg-[#02033a] rounded-lg p-6 shadow-lg flex flex-col justify-between items-center w-[180px] h-[250px] flex-shrink-0">
+          <div class="text-white flex flex-col items-center">
+            <p class="font-semibold mb-3 text-sm sm:text-base">2.00 AM</p>
+            <img id="icon_2" src="./assets/img/rainShower.png" alt="Rain Shower" class="w-16 h-16 mb-2 sm:mb-3">
+            <span id="weatherCondition_2" class="text-sm sm:text-base">Rain Shower</span>
+          </div>
+          <p id="temp_2" class="text-white text-2xl font-bold mt-4 sm:mt-6">26°C</p>
+        </div>
+
+        <!------- 3.00 Card ------->
+        <div
+          class="bg-[#02033a] rounded-lg p-6 shadow-lg flex flex-col justify-between items-center w-[180px] h-[250px] flex-shrink-0">
+          <div class="text-white flex flex-col items-center">
+            <p class="font-semibold mb-3 text-sm sm:text-base">3.00 AM</p>
+            <img id="icon_3" src="./assets/img/sunny.png" alt="Cloudy" class="w-16 h-16 mb-2 sm:mb-3">
+            <span id="weatherCondition_3" class="text-sm sm:text-base">Sunny</span>
+          </div>
+          <p id="temp_3" class="text-white text-2xl font-bold mt-4 sm:mt-6">30°C</p>
+        </div>
+
+        <!------- 4.00 Card ------->
+        <div
+          class="bg-[#02033a] rounded-lg p-6 shadow-lg flex flex-col justify-between items-center w-[180px] h-[250px] flex-shrink-0">
+          <div class="text-white flex flex-col items-center">
+            <p class="font-semibold mb-3 text-sm sm:text-base">4.00 AM</p>
+            <img id="icon_4" src="./assets/img/foggy.png" alt="Foggy" class="w-16 h-16 mb-2 sm:mb-3">
+            <span id="weatherCondition_4" class="text-sm sm:text-base">Foggy</span>
+          </div>
+          <p id="temp_4" class="text-white text-2xl font-bold mt-4 sm:mt-6">28°C</p>
+        </div>
+
+        <!------- 5.00 Card ------->
+
+        <div
+          class="bg-[#02033a] rounded-lg p-6 shadow-lg flex flex-col justify-between items-center w-[180px] h-[250px] flex-shrink-0">
+          <div class="text-white flex flex-col items-center">
+            <p class="font-semibold mb-3 text-sm sm:text-base">5.00 AM</p>
+            <img id="icon_5" src="./assets/img/cloudy.png" alt="Foggy" class="w-16 h-16 mb-2 sm:mb-3">
+            <span id="weatherCondition_5" class="text-sm sm:text-base">Cloudy</span>
+          </div>
+          <p id="temp_5" class="text-white text-2xl font-bold mt-4 sm:mt-6">28°C</p>
+        </div>
+
+        <!------- 6.00 Card ------->
+        <div
+          class="bg-[#02033a] rounded-lg p-6 shadow-lg flex flex-col justify-between items-center w-[180px] h-[250px] flex-shrink-0">
+          <div class="text-white flex flex-col items-center">
+            <p class="font-semibold mb-3 text-sm sm:text-base">6.00 AM</p>
+            <img id="icon_6" src="./assets/img/misty.png" alt="Mist" class="w-16 h-16 mb-2 sm:mb-3">
+            <span id="weatherCondition_6" class="text-sm sm:text-base">Mist</span>
+          </div>
+          <p id="temp_6" class="text-white text-2xl font-bold mt-4 sm:mt-6">23°C</p>
+        </div>
+
+        <!------- 7.00 Card ------->
+        <div
+          class="bg-[#02033a] rounded-lg p-6 shadow-lg flex flex-col justify-between items-center w-[180px] h-[250px] flex-shrink-0">
+          <div class="text-white flex flex-col items-center">
+            <p class="font-semibold mb-3 text-sm sm:text-base">7.00 AM</p>
+            <img id="icon_7" src="./assets/img/sunny.png" alt="Sunny" class="w-16 h-16 mb-2 sm:mb-3">
+            <span id="weatherCondition_7" class="text-sm sm:text-base">Sunny</span>
+          </div>
+          <p id="temp_7" class="text-white text-2xl font-bold mt-4 sm:mt-6">25°C</p>
+        </div>
+
+        <!------- 8.00 Card ------->
+        <div
+          class="bg-[#02033a] rounded-lg p-6 shadow-lg flex flex-col justify-between items-center w-[180px] h-[250px] flex-shrink-0">
+          <div class="text-white flex flex-col items-center">
+            <p class="font-semibold mb-3 text-sm sm:text-base">8.00 AM</p>
+            <img id="icon_8" src="./assets/img/rainShower.png" alt="Rain Shower" class="w-16 h-16 mb-2 sm:mb-3">
+            <span id="weatherCondition_8" class="text-sm sm:text-base">Rain Shower</span>
+          </div>
+          <p id="temp_8" class="text-white text-2xl font-bold mt-4 sm:mt-6">26°C</p>
+        </div>
+
+        <!------- 9.00 Card ------->
+        <div
+          class="bg-[#02033a] rounded-lg p-6 shadow-lg flex flex-col justify-between items-center w-[180px] h-[250px] flex-shrink-0">
+          <div class="text-white flex flex-col items-center">
+            <p class="font-semibold mb-3 text-sm sm:text-base">9.00 AM</p>
+            <img id="icon_9" src="./assets/img/sunny.png" alt="Cloudy" class="w-16 h-16 mb-2 sm:mb-3">
+            <span id="weatherCondition_9" class="text-sm sm:text-base">Sunny</span>
+          </div>
+          <p id="temp_9" class="text-white text-2xl font-bold mt-4 sm:mt-6">30°C</p>
+        </div>
+
+        <!------- 10.00 Card ------->
+        <div
+          class="bg-[#02033a] rounded-lg p-6 shadow-lg flex flex-col justify-between items-center w-[180px] h-[250px] flex-shrink-0">
+          <div class="text-white flex flex-col items-center">
+            <p class="font-semibold mb-3 text-sm sm:text-base">10.00 AM</p>
+            <img id="icon_10" src="./assets/img/foggy.png" alt="Foggy" class="w-16 h-16 mb-2 sm:mb-3">
+            <span id="weatherCondition_10" class="text-sm sm:text-base">Foggy</span>
+          </div>
+          <p id="temp_10" class="text-white text-2xl font-bold mt-4 sm:mt-6">28°C</p>
+        </div>
+
+        <!------- 11.00 Card ------->
+
+        <div
+          class="bg-[#02033a] rounded-lg p-6 shadow-lg flex flex-col justify-between items-center w-[180px] h-[250px] flex-shrink-0">
+          <div class="text-white flex flex-col items-center">
+            <p class="font-semibold mb-3 text-sm sm:text-base">11.00 AM</p>
+            <img id="icon_11" src="./assets/img/cloudy.png" alt="Foggy" class="w-16 h-16 mb-2 sm:mb-3">
+            <span id="weatherCondition_11" class="text-sm sm:text-base">Cloudy</span>
+          </div>
+          <p id="temp_11" class="text-white text-2xl font-bold mt-4 sm:mt-6">28°C</p>
+        </div>
+
+
+        <!------- 12.00 Card ------->
+        <div
+          class="bg-[#02033a] rounded-lg p-6 shadow-lg flex flex-col justify-between items-center w-[180px] h-[250px] flex-shrink-0">
+          <div class="text-white flex flex-col items-center">
+            <p class="font-semibold mb-3 text-sm sm:text-base">12.00 PM</p>
+            <img id="icon_12" src="./assets/img/misty.png" alt="Mist" class="w-16 h-16 mb-2 sm:mb-3">
+            <span id="weatherCondition_12" class="text-sm sm:text-base">Mist</span>
+          </div>
+          <p id="temp_12" class="text-white text-2xl font-bold mt-4 sm:mt-6">23°C</p>
+        </div>
+
+        <!------- 1.00 Card ------->
+        <div
+          class="bg-[#02033a] rounded-lg p-6 shadow-lg flex flex-col justify-between items-center w-[180px] h-[250px] flex-shrink-0">
+          <div class="text-white flex flex-col items-center">
+            <p class="font-semibold mb-3 text-sm sm:text-base">1.00 PM</p>
+            <img id="icon_13" src="./assets/img/sunny.png" alt="Sunny" class="w-16 h-16 mb-2 sm:mb-3">
+            <span id="weatherCondition_13" class="text-sm sm:text-base">Sunny</span>
+          </div>
+          <p id="temp_13" class="text-white text-2xl font-bold mt-4 sm:mt-6">25°C</p>
+        </div>
+
+        <!------- 2.00 Card ------->
+        <div
+          class="bg-[#02033a] rounded-lg p-6 shadow-lg flex flex-col justify-between items-center w-[180px] h-[250px] flex-shrink-0">
+          <div class="text-white flex flex-col items-center">
+            <p class="font-semibold mb-3 text-sm sm:text-base">2.00 PM</p>
+            <img id="icon_14" src="./assets/img/rainShower.png" alt="Rain Shower" class="w-16 h-16 mb-2 sm:mb-3">
+            <span id="weatherCondition_14" class="text-sm sm:text-base">Rain Shower</span>
+          </div>
+          <p id="temp_14" class="text-white text-2xl font-bold mt-4 sm:mt-6">26°C</p>
+        </div>
+
+        <!------- 3.00 Card ------->
+        <div
+          class="bg-[#02033a] rounded-lg p-6 shadow-lg flex flex-col justify-between items-center w-[180px] h-[250px] flex-shrink-0">
+          <div class="text-white flex flex-col items-center">
+            <p class="font-semibold mb-3 text-sm sm:text-base">3.00 PM</p>
+            <img id="icon_15" src="./assets/img/sunny.png" alt="Cloudy" class="w-16 h-16 mb-2 sm:mb-3">
+            <span id="weatherCondition_15" class="text-sm sm:text-base">Sunny</span>
+          </div>
+          <p id="temp_15" class="text-white text-2xl font-bold mt-4 sm:mt-6">30°C</p>
+        </div>
+
+        <!------- 4.00 Card ------->
+        <div
+          class="bg-[#02033a] rounded-lg p-6 shadow-lg flex flex-col justify-between items-center w-[180px] h-[250px] flex-shrink-0">
+          <div class="text-white flex flex-col items-center">
+            <p class="font-semibold mb-3 text-sm sm:text-base">4.00 PM</p>
+            <img id="icon_16" src="./assets/img/foggy.png" alt="Foggy" class="w-16 h-16 mb-2 sm:mb-3">
+            <span id="weatherCondition_16" class="text-sm sm:text-base">Foggy</span>
+          </div>
+          <p id="temp_16" class="text-white text-2xl font-bold mt-4 sm:mt-6">28°C</p>
+        </div>
+
+        <!------- 5.00 Card ------->
+        <div
+          class="bg-[#02033a] rounded-lg p-6 shadow-lg flex flex-col justify-between items-center w-[180px] h-[250px] flex-shrink-0">
+          <div class="text-white flex flex-col items-center">
+            <p class="font-semibold mb-3 text-sm sm:text-base">5.00 PM</p>
+            <img id="icon_17" src="./assets/img/cloudy.png" alt="Foggy" class="w-16 h-16 mb-2 sm:mb-3">
+            <span id="weatherCondition_17" class="text-sm sm:text-base">Cloudy</span>
+          </div>
+          <p id="temp_17" class="text-white text-2xl font-bold mt-4 sm:mt-6">28°C</p>
+        </div>
+
+        <!------- 6.00 Card ------->
+        <div
+          class="bg-[#02033a] rounded-lg p-6 shadow-lg flex flex-col justify-between items-center w-[180px] h-[250px] flex-shrink-0">
+          <div class="text-white flex flex-col items-center">
+            <p class="font-semibold mb-3 text-sm sm:text-base">6.00 PM</p>
+            <img id="icon_18" src="./assets/img/misty.png" alt="Mist" class="w-16 h-16 mb-2 sm:mb-3">
+            <span id="weatherCondition_18" class="text-sm sm:text-base">Mist</span>
+          </div>
+          <p id="temp_18" class="text-white text-2xl font-bold mt-4 sm:mt-6">23°C</p>
+        </div>
+
+        <!------- 7.00 Card ------->
+        <div
+          class="bg-[#02033a] rounded-lg p-6 shadow-lg flex flex-col justify-between items-center w-[180px] h-[250px] flex-shrink-0">
+          <div class="text-white flex flex-col items-center">
+            <p class="font-semibold mb-3 text-sm sm:text-base">7.00 PM</p>
+            <img id="icon_19" src="./assets/img/sunny.png" alt="Sunny" class="w-16 h-16 mb-2 sm:mb-3">
+            <span id="weatherCondition_19" class="text-sm sm:text-base">Sunny</span>
+          </div>
+          <p id="temp_19" class="text-white text-2xl font-bold mt-4 sm:mt-6">25°C</p>
+        </div>
+
+        <!------- 8.00 Card ------->
+        <div
+          class="bg-[#02033a] rounded-lg p-6 shadow-lg flex flex-col justify-between items-center w-[180px] h-[250px] flex-shrink-0">
+          <div class="text-white flex flex-col items-center">
+            <p class="font-semibold mb-3 text-sm sm:text-base">8.00 PM</p>
+            <img id="icon_20" src="./assets/img/rainShower.png" alt="Rain Shower" class="w-16 h-16 mb-2 sm:mb-3">
+            <span id="weatherCondition_20" class="text-sm sm:text-base">Rain Shower</span>
+          </div>
+          <p id="temp_20" class="text-white text-2xl font-bold mt-4 sm:mt-6">26°C</p>
+        </div>
+
+        <!------- 9.00 Card ------->
+        <div
+          class="bg-[#02033a] rounded-lg p-6 shadow-lg flex flex-col justify-between items-center w-[180px] h-[250px] flex-shrink-0">
+          <div class="text-white flex flex-col items-center">
+            <p class="font-semibold mb-3 text-sm sm:text-base">9.00 PM</p>
+            <img id="icon_21" src="./assets/img/sunny.png" alt="Cloudy" class="w-16 h-16 mb-2 sm:mb-3">
+            <span id="weatherCondition_21" class="text-sm sm:text-base">Sunny</span>
+          </div>
+          <p id="temp_21" class="text-white text-2xl font-bold mt-4 sm:mt-6">30°C</p>
+        </div>
+
+        <!------- 10.00 Card ------->
+        <div
+          class="bg-[#02033a] rounded-lg p-6 shadow-lg flex flex-col justify-between items-center w-[180px] h-[250px] flex-shrink-0">
+          <div class="text-white flex flex-col items-center">
+            <p class="font-semibold mb-3 text-sm sm:text-base">10.00 PM</p>
+            <img id="icon_22" src="./assets/img/foggy.png" alt="Foggy" class="w-16 h-16 mb-2 sm:mb-3">
+            <span id="weatherCondition_22" class="text-sm sm:text-base">Foggy</span>
+          </div>
+          <p id="temp_22" class="text-white text-2xl font-bold mt-4 sm:mt-6">28°C</p>
+        </div>
+
+        <!------- 11.00 Card ------->
+        <div
+          class="bg-[#02033a] rounded-lg p-6 shadow-lg flex flex-col justify-between items-center w-[180px] h-[250px] flex-shrink-0">
+          <div class="text-white flex flex-col items-center">
+            <p class="font-semibold mb-3 text-sm sm:text-base">11.00 PM</p>
+            <img id="icon_23" src="./assets/img/cloudy.png" alt="Foggy" class="w-16 h-16 mb-2 sm:mb-3">
+            <span id="weatherCondition_23" class="text-sm sm:text-base">Cloudy</span>
+          </div>
+          <p id="temp_23" class="text-white text-2xl font-bold mt-4 sm:mt-6">28°C</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- --------------------------------Daily------------------------------------- -->
+
+  <section class="flex items-center justify-center p-4 min-h-[500px] sectionBar">
+    <div class="w-full max-w-[1400px] mx-auto px-4" data-aos="zoom-in-down" data-aos-duration="1200">
+      <h1 class="text-2xl font-bold text-gray-800 mb-6 text-center">Daily Forecast</h1>
+
+      <div class="flex flex-wrap md:flex-nowrap space-x-0 md:space-x-6 overflow-x-auto">
+        <!-- Today -->
+        <div
+          class="flex flex-col justify-center items-center bg-[#1e3a8a] rounded-lg p-8 sm:p-10 min-w-[150px] sm:min-w-[180px] md:min-w-[200px] h-[320px] sm:h-[350px] text-white mb-4 md:mb-0">
+          <div class="font-medium text-lg mb-4 sm:mb-6">Today</div>
+          <div class="flex flex-col items-center space-y-3 sm:space-y-4 mb-4 sm:mb-6">
+            <img src="./assets/img/sunny.png" alt="Sunny" class="w-16 sm:w-20 h-16 sm:h-20">
+            <span class="text-lg sm:text-xl">Sunny</span>
+          </div>
+          <div class="font-semibold text-xl sm:text-xl">31°C / 25°C</div>
+        </div>
+
+        <!-- Tuesday -->
+        <div
+          class="flex flex-col justify-center items-center bg-[#1e3a8a] rounded-lg p-8 sm:p-10 min-w-[150px] sm:min-w-[180px] md:min-w-[200px] h-[320px] sm:h-[350px] text-white mb-4 md:mb-0">
+          <div class="font-medium text-lg mb-4 sm:mb-6">Tuesday</div>
+          <div class="flex flex-col items-center space-y-3 sm:space-y-4 mb-4 sm:mb-6">
+            <img src="./assets/img/sunny.png" alt="Sunny" class="w-16 sm:w-20 h-16 sm:h-20">
+            <span class="text-lg sm:text-xl">Sunny</span>
+          </div>
+          <div class="font-semibold text-xl sm:text-xl">31°C / 25°C</div>
+        </div>
+
+        <!-- Wednesday -->
+        <div
+          class="flex flex-col justify-center items-center bg-[#1e3a8a] rounded-lg p-8 sm:p-10 min-w-[150px] sm:min-w-[180px] md:min-w-[200px] h-[320px] sm:h-[350px] text-white mb-4 md:mb-0">
+          <div class="font-medium text-lg mb-4 sm:mb-6">Wednesday</div>
+          <div class="flex flex-col items-center space-y-3 sm:space-y-4 mb-4 sm:mb-6">
+            <img src="./assets/img/foggy.png" alt="Foggy" class="w-16 sm:w-20 h-16 sm:h-20">
+            <span class="text-lg sm:text-xl">Foggy</span>
+          </div>
+          <div class="font-semibold text-xl sm:text-xl">31°C / 25°C</div>
+        </div>
+
+        <!-- Thursday -->
+        <div
+          class="flex flex-col justify-center items-center bg-[#1e3a8a] rounded-lg p-8 sm:p-10 min-w-[150px] sm:min-w-[180px] md:min-w-[200px] h-[320px] sm:h-[350px] text-white mb-4 md:mb-0">
+          <div class="font-medium text-lg mb-4 sm:mb-6">Thursday</div>
+          <div class="flex flex-col items-center space-y-3 sm:space-y-4 mb-4 sm:mb-6">
+            <img src="./assets/img/cloudy.png" alt="Cloudy" class="w-16 sm:w-20 h-16 sm:h-20">
+            <span class="text-lg sm:text-xl">Cloudy</span>
+          </div>
+          <div class="font-semibold text-xl sm:text-xl">31°C / 25°C</div>
+        </div>
+
+        <!-- Friday -->
+        <div
+          class="flex flex-col justify-center items-center bg-[#1e3a8a] rounded-lg p-8 sm:p-10 min-w-[150px] sm:min-w-[180px] md:min-w-[200px] h-[320px] sm:h-[350px] text-white mb-4 md:mb-0">
+          <div class="font-medium text-lg mb-4 sm:mb-6">Friday</div>
+          <div class="flex flex-col items-center space-y-3 sm:space-y-4 mb-4 sm:mb-6">
+            <img src="./assets/img/foggy.png" alt="Foggy" class="w-16 sm:w-20 h-16 sm:h-20">
+            <span class="text-lg sm:text-xl">Foggy</span>
+          </div>
+          <div class="font-semibold text-xl sm:text-xl">29°C / 24°C</div>
+        </div>
+
+        <!-- Saturday -->
+        <div
+          class="flex flex-col justify-center items-center bg-[#1e3a8a] rounded-lg p-8 sm:p-10 min-w-[150px] sm:min-w-[180px] md:min-w-[200px] h-[320px] sm:h-[350px] text-white mb-4 md:mb-0">
+          <div class="font-medium text-lg mb-4 sm:mb-6">Saturday</div>
+          <div class="flex flex-col items-center space-y-3 sm:space-y-4 mb-4 sm:mb-6">
+            <img src="./assets/img/rainShower.png" alt="Rainy" class="w-16 sm:w-20 h-16 sm:h-20">
+            <span class="text-lg sm:text-xl">Rainy</span>
+          </div>
+          <div class="font-semibold text-xl sm:text-xl">29°C / 24°C</div>
+        </div>
+
+        <!-- Sunday -->
+        <div
+          class="flex flex-col justify-center items-center bg-[#1e3a8a] rounded-lg p-8 sm:p-10 min-w-[150px] sm:min-w-[180px] md:min-w-[200px] h-[320px] sm:h-[350px] text-white mb-4 md:mb-0">
+          <div class="font-medium text-lg mb-4 sm:mb-6">Sunday</div>
+          <div class="flex flex-col items-center space-y-3 sm:space-y-4 mb-4 sm:mb-6">
+            <img src="./assets/img/sunny.png" alt="Sunny" class="w-16 sm:w-20 h-16 sm:h-20">
+            <span class="text-lg sm:text-xl">Sunny</span>
+          </div>
+          <div class="font-semibold text-xl sm:text-xl">29°C / 24°C</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-white rounded-lg shadow-sm dark:bg-gray-800 m-4">
+    <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
+      <span class="block text-sm text-gray-500 sm:text-center dark:text-gray-100">© 2025 <a href="https://flowbite.com/"
+          class="hover:underline">Hiranya Mendis</a></span>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+  <script src="./assets/js/app.js"></script>
 </body>
+
 </html>

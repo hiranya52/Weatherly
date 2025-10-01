@@ -1,0 +1,30 @@
+header{
+    margin-top: 20px;
+    margin-left: 80px;
+    width: 1300px;
+}
+
+.div{
+    background-image: url(/assets/img/sunnyBgImg.png);
+}
+
+.firstBar{
+    background-color: rgba(240, 248, 255, 0.352);
+    border-radius: 30px;
+}
+
+.secBar{
+    margin-top: 50px;
+    border-radius: 20px;
+    width: 1300px;
+    background-color: #222358a9;
+}
+
+.sectionBar{
+    margin-top: 50px;
+    border-radius: 20px;
+    width: 1300px;
+    margin-left: 82px;
+    margin-bottom: 50px;
+    background-color: rgba(195, 224, 249, 0.89);
+}
